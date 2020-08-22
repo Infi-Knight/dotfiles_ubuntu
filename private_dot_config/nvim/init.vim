@@ -1,3 +1,10 @@
+" change movement keys from hjkl to jkl;
+" noremap ; l
+" noremap l k
+" noremap k j
+" noremap j h
+
+
 " Remap leader key to ,
 let g:mapleader=','
 
@@ -205,6 +212,7 @@ let g:go_doc_keywordprg_enabled = 0 " use floating window instead of a bottom sp
 " }}} Golang
 
 " airline {{{
+" https://gist.github.com/Infi-Knight/0f65f7bf3385f9c8984e3e64a4b8520f
 let g:airline_powerline_fonts = 1 " make sure to install patched powerline fonts
 let g:airline_theme='oceanicnext'
 let g:airline_extensions = ['branch', 'hunks', 'coc'] " Enable extensions
