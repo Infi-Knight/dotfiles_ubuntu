@@ -99,6 +99,10 @@ set autoindent
 set copyindent      " copy indent from the previous line
 " }}} Spaces & Tabs
 
+" search options {{{
+set ignorecase
+" }}} search options
+
 " UI Config {{{
 set hidden 		     " TextEdit might fail if hidden is not set.
 
