@@ -226,6 +226,16 @@ let g:airline_extensions = ['branch', 'hunks', 'coc'] " Enable extensions
 set nobackup
 set nowritebackup
 
+" The directory option contains a list of directories where Vim will try to store swap files. The //
+" at the end tells Vim to use the absolute path to the file to create the swap file. This will ensure
+" that swap file name is unique, so there are no collisions between files with the same name from
+" different directories.
+" create the swap directory using $ mkdir ~/.vim/swp
+set directory=$HOME/.vim/swap//
+
+" setup persistent undo. create an undodir first
+set undodir=~/.vim/undodir
+
 " Give more space for displaying messages.
 set cmdheight=2
 
