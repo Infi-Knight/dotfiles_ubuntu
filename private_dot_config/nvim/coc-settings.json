@@ -1,55 +1,50 @@
 {
-    "coc.preferences.formatOnSaveFiletypes": [
-        "javascript",
-        "python",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact",
-        "vue",
-        "json",
-        "markdown",
-        "md"
-    ],
-    "go.enable": false,
-    "tsserver.formatOnType": true,
-    "coc.preferences.formatOnType": true,
-    "eslint.autoFixOnSave": true,
-    "eslint.filetypes": [
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact"
-    ],
-    "languageserver": {
-        "golang": {
-            "command": "gopls",
-            "rootPatterns": [
-                "go.mod",
-                ".vim/",
-                ".git/",
-                ".hg/"
-            ],
-            "filetypes": [
-                "go"
-            ],
-            "initializationOptions": {
-                "usePlaceholders": true
-            }
-        }
-    },
-    "typescript.preferences.importModuleSpecifier": "relative",
-    "html.autoClosingTags": true,
-    "explorer.icon.enableVimDevicons": true,
-    "eslint.nodePath": "./node_modules",
-    "vetur.format.defaultFormatter.html": "prettier",
-    "python.jediEnabled": false,
-    "python.analysis.diagnosticPublishDelay": 300,
-    "python.formatting.provider": "autopep8",
-    "diagnostic.errorSign": "❌",
-    "diagnostic.warningSign": "⚠️",
-    "diagnostic.infoSign": "ℹ️",
-    "emmet.includeLanguages": {
-        "javascript": "javascriptreact",
-        "vue-html": "html"
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "python",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue",
+    "json",
+    "markdown",
+    "md"
+  ],
+  "go.enable": false,
+  "yaml.format.enable": true,
+  "tsserver.formatOnType": true,
+  "coc.preferences.formatOnType": true,
+  "eslint.autoFixOnSave": true,
+  "eslint.filetypes": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "languageserver": {
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["go"],
+      "initializationOptions": {
+        "usePlaceholders": true
+      }
     }
+  },
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "html.autoClosingTags": true,
+  "explorer.icon.enableVimDevicons": true,
+  "eslint.nodePath": "./node_modules",
+  "vetur.format.defaultFormatter.html": "prettier",
+  "python.jediEnabled": false,
+  "python.analysis.diagnosticPublishDelay": 300,
+  "python.formatting.provider": "autopep8",
+  "diagnostic.errorSign": "❌",
+  "diagnostic.warningSign": "⚠️",
+  "diagnostic.infoSign": "ℹ️",
+  "cSpell.enabled": false,
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact",
+    "vue-html": "html"
+  }
 }
