@@ -1,7 +1,7 @@
 # Font configuration (changes require restart)
 font:
   # The size to use.
-  size: 12
+  size: 14
   # The normal (roman) font face to use.
   normal:
     family: Fira Code 
@@ -20,6 +20,11 @@ font:
   
   offset:
       y: 8
+  # Thin stroke font rendering (macOS only)
+  #
+  # Thin strokes are suitable for retina displays, but for non-retina screens
+  # it is recommended to set `use_thin_strokes` to `false`.
+  # use_thin_strokes: true
 
 # background opacity
 # too bad my current machine has got shitty gpu
