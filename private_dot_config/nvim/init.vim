@@ -4,9 +4,13 @@
 " noremap k j
 " noremap j h
 
-
+" Mapleader {{{
 " Remap leader key to ,
-let g:mapleader=','
+nnoremap <SPACE> <Nop>
+let g:mapleader=' '
+" }}} Mapleader
+
+" Plugins {{{
 
 call plug#begin('~/.config/nvim/plugged')
 
@@ -19,17 +23,25 @@ Plug 'maxmellon/vim-jsx-pretty'   " JS and JSX syntax
 Plug 'peitalin/vim-jsx-typescript' " TSX syntax
 Plug 'jparise/vim-graphql'        " GraphQL syntax
 Plug 'posva/vim-vue' " vue syntax
-Plug 'mattn/emmet-vim' " emmet
 Plug 'ryanoasis/vim-devicons'
 Plug 'vim-airline/vim-airline' " statusline
 Plug 'tpope/vim-fugitive'
 Plug 'mhartington/oceanic-next' " colorscheme
 Plug 'honza/vim-snippets' " code snippets
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' } " styled components, emotion etc
+
+" The tabular plugin must come before vim-markdown
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown' " needs further customizations
+" markdown preview
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fzf
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim' " distraction free writing in vim
 Plug 'junegunn/limelight.vim'
 
+Plug 'mattn/emmet-vim' " emmet
 Plug 'tpope/vim-commentary' " comment stuff  
 Plug 'kana/vim-textobj-user' " defining your own text objects
 Plug 'tpope/vim-surround' " text objects for surrounding text: ds, cs, ys
@@ -37,20 +49,13 @@ Plug 'tpope/vim-repeat' " provides repeat functionality for some vim plugins lik
 Plug 'michaeljsmith/vim-indent-object' " Indent text object - ai, ii, aI, iI
 Plug 'kana/vim-textobj-entire' " text object for entire buffer - ae, ai
 Plug 'kana/vim-textobj-line' " text object for a line - al, il
+Plug 'zhou13/vim-easyescape' " use 'jk' for Esc
 
-Plug 'zhou13/vim-easyescape'
-
-" The tabular plugin must come before vim-markdown
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown' " needs further customizations
-" markdown preview
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-" styled-components, diet-cola, emotion, experimental glamor/styled, and astroturf content in javascript files.
-Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 " Intellisense engine for Vim8 & Neovim, full language server protocol support as VSCode
-
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 call plug#end() " Initialize plugin system
+" }}} Plugins 
 
 " colorscheme settings
 autocmd vimenter * colorscheme OceanicNext
@@ -60,7 +65,7 @@ let g:easyescape_chars = { "j": 1, "k": 1 }
 let g:easyescape_timeout = 100
 cnoremap jk <ESC>
 cnoremap kj <ESC>
-" }}}
+" }}} easyescape
 
 " Uncomment these two lines if js, jsx, ts, tsx syntax highlighting goes out
 " of sync.
@@ -112,7 +117,7 @@ set copyindent      " copy indent from the previous line
 " search options {{{
 set ignorecase
 " Press Space to turn off highlighting and clear any message already displayed.
-:nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+" :nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 " }}} search options
 
 " UI Config {{{
@@ -155,7 +160,7 @@ else
 endif
 
 " Quickly bring up the fuzzy file finder
-nnoremap <silent> <Space>f :Files<CR>
+nnoremap <silent> <Leader>f :Files<CR>
 
 " following commands (c, bc) depend upon vim-fugitive
 " The :Commits and :BCommits commands are used to explore a project’s Git history. 
@@ -181,15 +186,15 @@ nnoremap <silent> <Leader>bc :BCommits<CR>
 "  prompt is only used for restarting ripgrep process.
 "  Also note that we enabled previewer with fzf#vim#with_preview.
 function! RipgrepFzf(query, fullscreen)
-  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
-  let initial_command = printf(command_fmt, shellescape(a:query))
-  let reload_command = printf(command_fmt, '{q}')
-  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+let initial_command = printf(command_fmt, shellescape(a:query))
+let reload_command = printf(command_fmt, '{q}')
+let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 endfunction
 
 command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
-nnoremap <Space>g :RG<CR>
+nnoremap <Leader>g :RG<CR>
 " }}} fzf
 
 " Navigation {{{
@@ -199,7 +204,7 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-" fzf }}}
+" }}} Navigation
 
 " Markdown {{{
 " limelight's Goyo.vim integration
@@ -218,16 +223,15 @@ let g:mkdp_preview_options = {
     \ 'flowchart_diagrams': {},
     \ 'content_editable': v:false
     \ }
-" Markdown }}}
+"}}} Markdown 
 
 " emmet {{{
 " press ,, while in insert mode to trigger emmet tag completion 
 let g:user_emmet_leader_key=','
-" 
 " TODO: don't enable emmet for all file types
 " let g:user_emmet_install_global = 0
 " autocmd FileType html,css EmmetInstall
-" }}}
+"}}} emmet 
 
 " Golang {{{
 autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
@@ -330,9 +334,10 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 
+" TODO: Find different key mapping
 " Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+" xmap <leader>f  <Plug>(coc-format-selected)
+" nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -341,16 +346,6 @@ augroup mygroup
   " Update signature help on jump placeholder.
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
-
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Map function and class text objects
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
@@ -384,31 +379,15 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 
 " Mappings for CoCList
 " Show all diagnostics.
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+nnoremap <silent><nowait> <Leader>a  :<C-u>CocList diagnostics<cr>
 " Show commands.
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list.
-nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+nnoremap <silent><nowait> <Leader>c  :<C-u>CocList commands<cr>
 
 " coc-explorer
-:nmap <space>e :CocCommand explorer<CR>
+:nmap <Leader>e :CocCommand explorer<CR>
 
 set termguicolors
 " clipboard
 set clipboard+=unnamedplus
 set mouse=a
 syntax on
-
-" TODO: see if ale can be correctly configured with coc to provide stuff like
-" error squiggles
-" TODO: remove trailing whitespace,(possibley using ale)
