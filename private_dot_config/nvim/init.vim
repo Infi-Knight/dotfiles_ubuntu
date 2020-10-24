@@ -41,6 +41,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim' " distraction free writing in vim
 Plug 'junegunn/limelight.vim'
 
+Plug 'easymotion/vim-easymotion'
 Plug 'mattn/emmet-vim' " emmet
 Plug 'tpope/vim-commentary' " comment stuff  
 Plug 'kana/vim-textobj-user' " defining your own text objects
@@ -66,6 +67,22 @@ let g:easyescape_timeout = 100
 cnoremap jk <ESC>
 cnoremap kj <ESC>
 " }}} easyescape
+
+" easymotion {{{
+" let g:EasyMotion_do_mapping = 0 " Disable default mappings
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" `s{char}{label}`
+nmap s <Plug>(easymotion-overwin-f)
+" or
+" `s{char}{char}{label}`
+" Need one more keystroke, but on average, it may be more comfortable.
+" nmap s <Plug>(easymotion-overwin-f2)
+" Turn on case-insensitive feature
+let g:EasyMotion_smartcase = 1
+" JK motions: Line motions
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+" }}} easymotion
 
 " Uncomment these two lines if js, jsx, ts, tsx syntax highlighting goes out
 " of sync.
