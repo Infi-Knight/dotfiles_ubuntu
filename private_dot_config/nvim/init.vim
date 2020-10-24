@@ -38,6 +38,8 @@ Plug 'michaeljsmith/vim-indent-object' " Indent text object - ai, ii, aI, iI
 Plug 'kana/vim-textobj-entire' " text object for entire buffer - ae, ai
 Plug 'kana/vim-textobj-line' " text object for a line - al, il
 
+Plug 'zhou13/vim-easyescape'
+
 " The tabular plugin must come before vim-markdown
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown' " needs further customizations
@@ -53,6 +55,13 @@ call plug#end() " Initialize plugin system
 " colorscheme settings
 autocmd vimenter * colorscheme OceanicNext
 
+" easyescape {{{
+let g:easyescape_chars = { "j": 1, "k": 1 }
+let g:easyescape_timeout = 100
+cnoremap jk <ESC>
+cnoremap kj <ESC>
+" }}}
+
 " Uncomment these two lines if js, jsx, ts, tsx syntax highlighting goes out
 " of sync.
 " autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
@@ -64,6 +73,7 @@ autocmd vimenter * colorscheme OceanicNext
 let g:coc_global_extensions = [
 	\'coc-tsserver', 
 	\'coc-json', 
+    \'coc-java',
 	\'coc-vetur', 
 	\'coc-markdownlint', 
 	\'coc-actions', 
@@ -101,6 +111,8 @@ set copyindent      " copy indent from the previous line
 
 " search options {{{
 set ignorecase
+" Press Space to turn off highlighting and clear any message already displayed.
+:nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 " }}} search options
 
 " UI Config {{{
@@ -207,6 +219,15 @@ let g:mkdp_preview_options = {
     \ 'content_editable': v:false
     \ }
 " Markdown }}}
+
+" emmet {{{
+" press ,, while in insert mode to trigger emmet tag completion 
+let g:user_emmet_leader_key=','
+" 
+" TODO: don't enable emmet for all file types
+" let g:user_emmet_install_global = 0
+" autocmd FileType html,css EmmetInstall
+" }}}
 
 " Golang {{{
 autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
